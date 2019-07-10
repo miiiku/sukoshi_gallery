@@ -4,21 +4,37 @@ import 'package:flutter/rendering.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:sukoshi_gallery/pages/login/teddy_controller.dart';
 import 'package:sukoshi_gallery/pages/login/tracking_text_input.dart';
-import 'package:sukoshi_gallery/pages/register/register.dart';
 import 'package:sukoshi_gallery/component/router_style.dart';
+import 'package:sukoshi_gallery/component/user_submit_btn.dart';
 import 'package:sukoshi_gallery/constant/config.dart';
 
-class loginPage extends StatefulWidget {
-  loginPage({ Key key, this.title }) : super(key: key);
+import 'package:sukoshi_gallery/pages/register/register.dart';
+import 'package:sukoshi_gallery/pages/retrieve/retrieve.dart';
+import 'package:sukoshi_gallery/pages/space/space.dart';
+
+class LoginPage extends StatefulWidget {
+  LoginPage({ Key key, this.title }) : super(key: key);
 
   final String title;
 
   @override
-  _loginPageState createState() => _loginPageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _loginPageState extends State<loginPage> {
+class _LoginPageState extends State<LoginPage> {
   TeddyController _teddyController;
+  String _accountnumber;
+  String _password;
+
+  void _onSubmit() {
+    if (_accountnumber == "sukoshi" && _password == "111") {
+      _teddyController.onSuccess();
+      Navigator.push(context, FadeRouter(SpacePage()));
+    } else {
+      _teddyController.onFail();
+    }
+  }
+
   @override
   void initState() {
     _teddyController = TeddyController();
@@ -27,7 +43,6 @@ class _loginPageState extends State<loginPage> {
 
   @override
   Widget build(BuildContext context) {
-    EdgeInsets devicePadding = MediaQuery.of(context).padding;
 
     return Scaffold(
       backgroundColor: Color.fromRGBO(93, 142, 155, 1.0),
@@ -84,6 +99,9 @@ class _loginPageState extends State<loginPage> {
                                 onCaretMoved: (Offset caret) {
                                   _teddyController.lookAt(caret);
                                 },
+                                onTextChanged: (String value) {
+                                  setState(() => _accountnumber = value);
+                                },
                               ),
                               TrackingTextInput(
                                 label: '密码',
@@ -94,7 +112,7 @@ class _loginPageState extends State<loginPage> {
                                   _teddyController.lookAt(caret);
                                 },
                                 onTextChanged: (String value) {
-                                  _teddyController.setPassword(value);
+                                  setState(() => _password = value);
                                 },
                               ),
                               Container(
@@ -102,7 +120,7 @@ class _loginPageState extends State<loginPage> {
                                 alignment: Alignment.centerRight,
                                 child: InkWell(
                                   onTap: () {
-
+                                    Navigator.push(context, FadeRouter(RetrievePage()));
                                   },
                                   child: Text(
                                     '忘记密码？',
@@ -114,7 +132,7 @@ class _loginPageState extends State<loginPage> {
                                 ),
                               ),
                               buildSubmitBtn('登陆', () {
-                                _teddyController.submitPassword();
+                                _onSubmit();
                               }),
                             ],
                           ),

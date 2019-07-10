@@ -28,8 +28,6 @@ class TeddyController extends FlareControls {
   // Project gaze forward by this many pixels.
   static const double _projectGaze = 60.0;
 
-  String _password;
-
   @override
   bool advance(FlutterActorArtboard artboard, double elapsed) {
     super.advance(artboard, elapsed);
@@ -107,10 +105,6 @@ class TeddyController extends FlareControls {
     _hasFocus = true;
   }
 
-  void setPassword(String value) {
-    _password = value;
-  }
-
   bool _isCoveringEyes = false;
   coverEyes(cover) {
     if (_isCoveringEyes == cover) {
@@ -124,11 +118,11 @@ class TeddyController extends FlareControls {
     }
   }
 
-  void submitPassword() {
-    if (_password == "bears") {
-      play("success");
-    } else {
-      play("fail");
-    }
+  void onSuccess() {
+    play('success');
+  }
+
+  void onFail() {
+    play('fail');
   }
 }
