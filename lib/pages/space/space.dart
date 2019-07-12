@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:sukoshi_gallery/constant/config.dart';
+import 'package:sukoshi_gallery/constant/classs.dart';
 import 'package:sukoshi_gallery/component/appbar.dart';
 import 'package:sukoshi_gallery/utils/utils.dart';
 import 'package:sukoshi_gallery/datas.dart';
+
+typedef onClick = void Function();
 
 class SpacePage extends StatefulWidget {
   @override
@@ -13,10 +16,6 @@ class SpacePage extends StatefulWidget {
 class _SpacePageState extends State<SpacePage> {
   bool _isCover;
   bool _isData;
-
-  String test() {
-    return '666';
-  }
 
   // 个人空间背景图
   Widget returnAppBarImage() {
@@ -158,37 +157,6 @@ class _SpacePageState extends State<SpacePage> {
     );
   }
 
-  // 构建已发布列表区域
-  Widget buildAssetsList() {
-    return Container(
-      child: SliverStaggeredGrid.countBuilder(
-        crossAxisCount: 2,
-        itemCount: images.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Card(
-            elevation: 3.0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(6.0)),
-            ),
-            clipBehavior: Clip.antiAlias,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(6.0),
-              child: Image.network(
-                images[index]['images'][0],
-                fit: BoxFit.fill,
-              ),
-            ),
-          );
-        },
-        staggeredTileBuilder: (int index) {
-          return StaggeredTile.fit(1);
-        },
-        mainAxisSpacing: 4.0,
-        crossAxisSpacing: 4.0,
-      ),
-    );
-  }
-
   @override
   void initState() {
     _isCover = false;
@@ -201,32 +169,115 @@ class _SpacePageState extends State<SpacePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: buildAppBarContainer(title: 'Sukoshi'),
-      body: CustomScrollView(
-        slivers: <Widget>[
-          // 信息区域
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                buildUserInfo(),
-                Container(
-                  padding: EdgeInsets.all(P.margin),
-                  child: Text(
-                    '已发布',
-                    style: TextStyle(
-                      fontSize: F.fontSizeMax,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 2.0,
-                    ),
+      body: Container(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              buildUserInfo(),
+              BlockInfo(
+                '已发布',
+                [
+                  ImageObjce(images[0]['author'], images[0]['title'], images[0]['tags'], images[0]['images'], images[0]['createDate']),
+                  ImageObjce(images[1]['author'], images[1]['title'], images[1]['tags'], images[1]['images'], images[1]['createDate']),
+                  ImageObjce(images[2]['author'], images[2]['title'], images[2]['tags'], images[2]['images'], images[2]['createDate']),
+                ],
+                () {
+                  print('click');
+                }
+              ),
+              BlockInfo(
+                '已收藏',
+                [
+                  ImageObjce(images[14]['author'], images[14]['title'], images[14]['tags'], images[14]['images'], images[14]['createDate']),
+                  ImageObjce(images[15]['author'], images[15]['title'], images[15]['tags'], images[15]['images'], images[15]['createDate']),
+                  ImageObjce(images[13]['author'], images[13]['title'], images[13]['tags'], images[13]['images'], images[13]['createDate']),
+                ],
+                () {
+                  print('click');
+                }
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class BlockInfo extends StatelessWidget {
+  String title;
+
+  List<ImageObjce> images;
+
+  onClick click;
+
+  BlockInfo(this.title, this.images, this.click);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: P.margin),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: P.margin),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: F.fontSizeMax,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 2.0,
                   ),
                 ),
-              ]
+                InkWell(
+                  onTap: click,
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        '查看更多',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 12.0,
+                        ),
+                      ),
+                      Icon(
+                        Icons.keyboard_arrow_right,
+                        color: Colors.grey,
+                        size: 18.0,
+                      )
+                    ],
+                  ),
+                )
+              ],
             ),
           ),
-
-          // 内容区域
-          _isData == false ? buildNotData() : buildAssetsList(),
+          Container(
+            height: 140.0,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: images.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  margin: EdgeInsets.symmetric(horizontal: P.margin / 4, vertical: 10.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16.0),
+                    child: Image(
+                      image: NetworkImage(images[index].images[0]),
+                      fit: BoxFit.fitHeight,
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
         ],
-      )
+      ),
     );
   }
 }

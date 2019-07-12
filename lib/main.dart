@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sukoshi_gallery/pages/home/home.dart';
-import 'package:sukoshi_gallery/pages/login/login.dart';
 import 'package:sukoshi_gallery/pages/register/register.dart';
 import 'package:sukoshi_gallery/pages/select_tag/select_tag.dart';
 

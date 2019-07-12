@@ -79,6 +79,12 @@ class S {
   static const String defaultAvatar = 'assets/images/default_avatar.jpg';
   // 默认空间banner图
   static const String defaultSpaceBanner = 'assets/images/default_space_banner.jpg';
+  // 首页banner导航栏图
+  static const String bannerNavItemCalendar   = 'assets/images/banner_calendar.png';
+  static const String bannerNavItemUpdate     = 'assets/images/banner_update.png';
+  static const String bannerNavItemRanking    = 'assets/images/banner_ranking.png';
+  static const String bannerNavItemTag        = 'assets/images/banner_tag.png';
+  static const String bannerNavItemCollection = 'assets/images/banner_collection.png';
 }
 
 class P {
