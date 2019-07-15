@@ -82,6 +82,19 @@ const List<Map<String, String>> mobileList = [
   },
 ];
 
+const Map<String, dynamic> detailsInfo = {
+  'author': 'Sukoshi',
+  'title': '这只是一张图片，仅此而且。',
+  'tags': ['表情包', '头像'],
+  'images': [
+    'http://puek34b3i.bkt.clouddn.com//test/8c007b5cgw1f3h8ob3h2cj215o0la4qp.jpg',
+    'http://puek34b3i.bkt.clouddn.com//test/d1dd3f083ce20e202b384ad1f788a2ed.jpeg',
+    'http://puek34b3i.bkt.clouddn.com//test/7970780f-5a02-43ac-8309-8a94a239621a.png',
+    'http://puek34b3i.bkt.clouddn.com/test/mobile/20170627_050805167_iOS.jpg',
+  ],
+  'creatDate': 1562723238731,
+};
+
 const List<Map<String, dynamic>> images = [
   {
     'author': 'Sukoshi',

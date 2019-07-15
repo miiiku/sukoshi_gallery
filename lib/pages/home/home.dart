@@ -4,11 +4,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+
 import 'package:sukoshi_gallery/constant/config.dart';
 import 'package:sukoshi_gallery/component/router_style.dart';
+import 'package:sukoshi_gallery/pages/details/details.dart';
+import 'package:sukoshi_gallery/pages/login/login.dart';
 import 'package:sukoshi_gallery/pages/space/space.dart';
 import 'package:sukoshi_gallery/utils/utils.dart';
+import 'package:sukoshi_gallery/utils/app_store.dart';
 import 'package:sukoshi_gallery/datas.dart';
+
+import 'package:sukoshi_gallery/pages/select_tag/select_tag.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -51,19 +57,24 @@ class HomePage extends StatelessWidget {
             ),
           ),
         ),
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.push(context, FadeRouter(SpacePage()));
-          },
-          child: Container(
-            padding: EdgeInsets.all(5.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20.0),
-              child: Image(
-                image: AssetImage(S.defaultAvatar),
+        leading: FutureBuilder(
+          future: AppStore.userInfo(),
+          builder: (BuildContext context, AsyncSnapshot user) {
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(context, FadeRouter(user.hasData ? SpacePage(): LoginPage()));
+              },
+              child: Container(
+                padding: EdgeInsets.all(5.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20.0),
+                  child: Image(
+                    image: user.hasData ? NetworkImage(user.data.avatar) : AssetImage(S.defaultAvatar),
+                  ),
+                ),
               ),
-            ),
-          ),
+            );
+          },
         ),
         trailing: GestureDetector(
           onTap: () {},
@@ -84,7 +95,7 @@ class HomePage extends StatelessWidget {
                 HomeWidgetMobile(),
                 HomeWidgetSpecialColumn(),
               ],
-            )
+            ),
           ),
         ),
       ),
@@ -212,7 +223,7 @@ class HomeSwiper extends StatelessWidget {
                   print('排行榜单');
                 }),
                 buildNavItem('标签列表', S.bannerNavItemTag, () {
-                  print('标签列表');
+                  Navigator.push(context, FadeRouter(SelectTagPage()));
                 }),
                 buildNavItem('我的收藏', S.bannerNavItemCollection, () {
                   print('我的收藏');
@@ -295,11 +306,19 @@ class HomeWidgetAvatar extends StatelessWidget {
               itemCount: avatarList.length,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(16.0),
-                    child: Image(
-                      image: NetworkImage(avatarList[index]['image']),
-                      fit: BoxFit.cover,
+                  child: Material(
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(context, FadeRouter(DetailsPage(type: index.isOdd)));
+                      },
+                      borderRadius: BorderRadius.circular(16.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16.0),
+                        child: Image(
+                          image: NetworkImage(avatarList[index]['image']),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                   ),
                 );

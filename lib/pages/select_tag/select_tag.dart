@@ -20,7 +20,7 @@ class SelectTagPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    '选择一个',
+                    '选择喜欢的',
                     style: TextStyle(
                       fontSize: 24.0,
                       color: Colors.grey,
@@ -28,11 +28,12 @@ class SelectTagPage extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '照片分类',
+                    '图片标签',
                     style: TextStyle(
                       fontSize: 32.0,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
+                      letterSpacing: 2.0,
                     ),
                   ),
                 ],

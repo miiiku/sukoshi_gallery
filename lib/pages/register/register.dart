@@ -3,12 +3,12 @@ import 'package:sukoshi_gallery/constant/config.dart';
 import 'package:sukoshi_gallery/component/appbar.dart';
 import 'package:sukoshi_gallery/component/user_submit_btn.dart';
 
-class registerPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   @override
-  _registerPageState createState() => _registerPageState();
+  _RegisterPageState createState() => _RegisterPageState();
 }
 
-class _registerPageState extends State<registerPage> {
+class _RegisterPageState extends State<RegisterPage> {
   bool _passWordVisible;
 
   @override

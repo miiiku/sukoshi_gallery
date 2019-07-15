@@ -1,16 +1,18 @@
+import 'dart:convert';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flare_flutter/flare_actor.dart';
-import 'package:sukoshi_gallery/pages/login/teddy_controller.dart';
-import 'package:sukoshi_gallery/pages/login/tracking_text_input.dart';
+import 'package:sukoshi_gallery/component/appbar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:sukoshi_gallery/component/router_style.dart';
 import 'package:sukoshi_gallery/component/user_submit_btn.dart';
 import 'package:sukoshi_gallery/constant/config.dart';
+import 'package:sukoshi_gallery/constant/classs.dart';
 
 import 'package:sukoshi_gallery/pages/register/register.dart';
 import 'package:sukoshi_gallery/pages/retrieve/retrieve.dart';
-import 'package:sukoshi_gallery/pages/space/space.dart';
+import 'package:sukoshi_gallery/pages/home/home.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({ Key key, this.title }) : super(key: key);
@@ -22,123 +24,139 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TeddyController _teddyController;
-  String _accountnumber;
-  String _password;
+  TextEditingController _accountnumber;
+  TextEditingController _password;
+  bool _passWordVisible;
 
-  void _onSubmit() {
-    if (_accountnumber == "sukoshi" && _password == "111") {
-      _teddyController.onSuccess();
-      Navigator.push(context, FadeRouter(SpacePage()));
-    } else {
-      _teddyController.onFail();
+  void _onSubmit() async {
+    if (_accountnumber.value.text == "sukoshi" && _password.value.text == "111") {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      User user = User(
+        18380440709,
+        'Sukoshi',
+        'https://qiniu.miiiku.xyz/src/images/64f10fbebc74e345d0333528f6f9bc4a.jpeg',
+        'https://qiniu.miiiku.xyz/src/images/banner-footer.jpg',
+        '“望咩啊，死靓仔！”',
+        'token'
+      );
+      prefs.setString('UserInfo', jsonEncode(user));
+      Navigator.push(context, FadeRouter(HomePage()));
     }
   }
 
   @override
   void initState() {
-    _teddyController = TeddyController();
     super.initState();
+    _accountnumber    = TextEditingController();
+    _password         = TextEditingController();
+    _passWordVisible  = true;
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      backgroundColor: Color.fromRGBO(93, 142, 155, 1.0),
-      appBar: AppBar(
-        title: Text(
-          '登陆',
-          style: TextStyle(
-            fontSize: F.fontSizeBasic,
-            letterSpacing: F.letterSpacing,
-          ),
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-      ),
+      appBar: buildAppBarContainer(),
       body: Container(
-        child: Stack(
-          children: <Widget>[
-            Positioned.fill(
-              child: SingleChildScrollView(
-                padding: EdgeInsets.only(
-                  left: 20.0,
-                  right: 20.0,
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: P.margin),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.symmetric(vertical: P.margin),
+                child: Text(
+                  '欢迎回来',
+                  style: TextStyle(
+                    fontSize: 32.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
+              ),
+              Container(
+                padding: EdgeInsets.only(bottom: P.margin),
+                child: Text(
+                  '欢迎回来，哦概里！',
+                  style: TextStyle(
+                    fontSize: F.fontSizeMin,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Form(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Container(
-                      height: 150.0,
-                      padding: const EdgeInsets.only(left: 30.0, right: 30.0),
-                      child: FlareActor(
-                        'assets/flr/teddy.flr',
-                        shouldClip: false,
-                        alignment: Alignment.bottomCenter,
-                        fit: BoxFit.contain,
-                        controller: _teddyController,
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(25.0)),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.all(P.margin),
-                        child: Form(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              TrackingTextInput(
-                                label: '手机号/邮箱',
-                                hint: '输入手机号或邮箱号',
-                                onCaretMoved: (Offset caret) {
-                                  _teddyController.lookAt(caret);
-                                },
-                                onTextChanged: (String value) {
-                                  setState(() => _accountnumber = value);
-                                },
-                              ),
-                              TrackingTextInput(
-                                label: '密码',
-                                hint: '输入登陆密码',
-                                isObscured: true,
-                                onCaretMoved: (Offset caret) {
-                                  _teddyController.coverEyes(caret != null);
-                                  _teddyController.lookAt(caret);
-                                },
-                                onTextChanged: (String value) {
-                                  setState(() => _password = value);
-                                },
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(bottom: 20.0),
-                                alignment: Alignment.centerRight,
-                                child: InkWell(
-                                  onTap: () {
-                                    Navigator.push(context, FadeRouter(RetrievePage()));
-                                  },
-                                  child: Text(
-                                    '忘记密码？',
-                                    style: TextStyle(
-                                      fontSize: F.fontSizeMin,
-                                      color: Color.fromRGBO(115, 82, 135, 1.0),
-                                    )
-                                  ),
-                                ),
-                              ),
-                              buildSubmitBtn('登陆', () {
-                                _onSubmit();
-                              }),
-                            ],
+                    Padding(
+                      padding: EdgeInsets.only(bottom: P.margin),
+                      child: TextFormField(
+                        controller: _accountnumber,
+                        decoration: InputDecoration(
+                          labelText: '手机号',
+                          labelStyle: TextStyle(
+                            fontSize: F.fontSizeMin
+                          ),
+                          hintText: '请输入你的手机号',
+                          hintStyle: TextStyle(
+                            fontSize: F.fontSizeMin
+                          ),
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: BorderSide.none,
                           ),
                         ),
                       ),
                     ),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: P.margin),
+                      child: TextFormField(
+                        controller: _password,
+                        decoration: InputDecoration(
+                          labelText: '登陆密码',
+                          labelStyle: TextStyle(
+                            fontSize: F.fontSizeMin
+                          ),
+                          hintText: '请输入你的登陆密码',
+                          hintStyle: TextStyle(
+                            fontSize: F.fontSizeMin
+                          ),
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                            borderSide: BorderSide.none,
+                          ),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                this._passWordVisible = !this._passWordVisible;
+                              });
+                            },
+                            icon: Icon(_passWordVisible ? Icons.visibility : Icons.visibility_off),
+                          ),
+                        ),
+                        obscureText: _passWordVisible,
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(bottom: 20.0),
+                      alignment: Alignment.centerRight,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(context, FadeRouter(RetrievePage()));
+                        },
+                        child: Text(
+                          '忘记密码？',
+                          style: TextStyle(
+                            fontSize: F.fontSizeMin,
+                            color: Color.fromRGBO(115, 82, 135, 1.0),
+                          )
+                        ),
+                      ),
+                    ),
+                    buildSubmitBtn('登陆', () {
+                      _onSubmit();
+                    }),
                     Container(
                       padding: EdgeInsets.symmetric(vertical: 20.0),
                       child: Center(
@@ -149,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
                                 text: '还没有账号？',
                                 style: TextStyle(
                                   fontSize: F.fontSizeMin,
-                                  color: Colors.white,
+                                  color: Colors.grey,
                                 ),
                               ),
                               TextSpan(
@@ -160,23 +178,23 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 recognizer: TapGestureRecognizer()..onTap = () {
                                   // Navigator.of(context).pushNamed('/register');
-                                  Navigator.push(context, FadeRouter(registerPage()));
+                                  Navigator.push(context, FadeRouter(RegisterPage()));
                                 },
                               ),
                             ]
                           )
                         ),
-                        // child: Text('@Sukoshi 2016 - 2019', style: TextStyle(
-                        //   color: Colors.white,
-                        //   fontWeight: FontWeight.bold,
-                        // )),
                       ),
                     ),
+                    Text('@Sukoshi 2016 - 2019', style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ))
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

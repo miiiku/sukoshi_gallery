@@ -85,6 +85,9 @@ class S {
   static const String bannerNavItemRanking    = 'assets/images/banner_ranking.png';
   static const String bannerNavItemTag        = 'assets/images/banner_tag.png';
   static const String bannerNavItemCollection = 'assets/images/banner_collection.png';
+  // 登陆背景
+  static const String loginVideo = 'assets/video/login.mp4';
+  static const String loginImage = 'assets/images/login.png';
 }
 
 class P {
