@@ -30,6 +30,7 @@ class _LoginPageState extends State<LoginPage> {
 
   void _onSubmit() async {
     if (_accountnumber.value.text == "sukoshi" && _password.value.text == "111") {
+      print('succss');
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       User user = User(
         18380440709,
@@ -41,6 +42,8 @@ class _LoginPageState extends State<LoginPage> {
       );
       prefs.setString('UserInfo', jsonEncode(user));
       Navigator.push(context, FadeRouter(HomePage()));
+    } else {
+      print('error');
     }
   }
 

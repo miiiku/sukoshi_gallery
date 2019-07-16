@@ -26,3 +26,19 @@ String quantizationNumber(int num, [int digit = 0]) {
     }
   }
 }
+
+String add0(int number) {
+  return number < 10 ? '0$number' : '$number';
+}
+
+
+String formatDate(int milliseconds) {
+  DateTime dt = DateTime.fromMillisecondsSinceEpoch(milliseconds);
+  int year       = dt.year;
+  String month   = add0(dt.month);
+  String day     = add0(dt.day);
+  String hour    = add0(dt.hour);
+  String minute  = add0(dt.minute);
+  String second  = add0(dt.second);
+  return '$year-$month-$day $hour:$minute:$second';
+}

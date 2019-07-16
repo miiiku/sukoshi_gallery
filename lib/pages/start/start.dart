@@ -22,14 +22,6 @@ class StartPage extends StatefulWidget {
 class _StartPageState extends State<StartPage> {
   VideoPlayerController _videoController;
 
-  Widget _buildBackground() {
-    if (_videoController.value.initialized) {
-      return VideoPlayer(_videoController);
-    } else {
-      return Image.asset(S.loginImage, fit: BoxFit.cover);
-    }
-  }
-
   @override
   void initState() {
     super.initState();
@@ -38,7 +30,7 @@ class _StartPageState extends State<StartPage> {
       ..initialize().then((_) {
         setState(() {
           // 视频为播放状态
-          _videoController.setVolume(1.0);
+          _videoController.setVolume(0.5);
           _videoController.play();
           // 循环播放
           _videoController.setLooping(true);
@@ -67,9 +59,19 @@ class _StartPageState extends State<StartPage> {
       body: Container(
         child: Stack(
           children: <Widget>[
+            // 背景图
             Positioned.fill(
-              child: _buildBackground(),
+              child: Image.asset(S.loginImage, fit: BoxFit.cover),
             ),
+            // 背景视频
+            Positioned.fill(
+              child: _videoController.value.initialized
+                ? AspectRatio(
+                  aspectRatio: _videoController.value.aspectRatio,
+                  child: VideoPlayer(_videoController),
+                ) : Container(),
+            ),
+            // 内容
             Positioned.fill(
               child: Container(
                 alignment: Alignment.bottomCenter,
