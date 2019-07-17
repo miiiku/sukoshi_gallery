@@ -163,7 +163,7 @@ class HomeSwiper extends StatelessWidget {
             child: Swiper(
               autoplay: false,
               onTap: (int index) {},
-              itemCount: bannerList.length,
+              itemCount: largeList['images'].length,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                   width: double.infinity,
@@ -175,7 +175,7 @@ class HomeSwiper extends StatelessWidget {
                       child: Stack(
                         fit: StackFit.expand,
                         children: <Widget>[
-                          Image.network(bannerList[index]['image'], fit: BoxFit.cover),
+                          Image.network(largeList['images'][index], fit: BoxFit.cover),
                           Positioned(
                             bottom: 0, right: 0,
                             child: ClipRRect(
@@ -184,7 +184,7 @@ class HomeSwiper extends StatelessWidget {
                                 color: Colors.red.withOpacity(0.8),
                                 padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
                                 child: Text(
-                                  bannerList[index]['tag'],
+                                  largeList['tags'][index],
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 12.0,
@@ -303,19 +303,20 @@ class HomeWidgetAvatar extends StatelessWidget {
             child: GridView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: avatarList.length,
+              itemCount: avatarList['images'].length,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                   child: Material(
+                    borderRadius: BorderRadius.circular(16.0),
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(context, FadeRouter(DetailsPage(type: index.isOdd)));
+                        Navigator.push(context, FadeRouter(DetailsPage(sid: index)));
                       },
                       borderRadius: BorderRadius.circular(16.0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(16.0),
                         child: Image(
-                          image: NetworkImage(avatarList[index]['image']),
+                          image: NetworkImage(avatarList['images'][index]),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -351,14 +352,14 @@ class HomeWidgetWallpaper extends StatelessWidget {
             child: GridView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: bannerList.length,
+              itemCount: largeList['images'].length,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                   height: 100.0,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(16.0),
                     child: Image(
-                      image: NetworkImage(bannerList[index]['image']),
+                      image: NetworkImage(largeList['images'][index]),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -392,14 +393,14 @@ class HomeWidgetMobile extends StatelessWidget {
             child: GridView.builder(
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
-              itemCount: mobileList.length,
+              itemCount: mobileList['images'].length,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                   height: 100.0,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(16.0),
                     child: Image(
-                      image: NetworkImage(mobileList[index]['image']),
+                      image: NetworkImage(mobileList['images'][index]),
                       fit: BoxFit.cover,
                     ),
                   ),

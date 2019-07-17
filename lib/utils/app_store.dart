@@ -6,6 +6,7 @@ class AppStore {
   // 查询本地用户数据
   static Future<User> userInfo() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return User.fromJson(jsonDecode(prefs.getString('UserInfo')));
+    final String userInfo = prefs.getString('UserInfo');
+    return userInfo == null ? null : User.fromJson(jsonDecode(userInfo));
   }
 }

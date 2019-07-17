@@ -1,89 +1,66 @@
+const Map<String, dynamic> onlyData = {
+  'pid': '233333',
+  'author': 'Sukoshi',
+  'fans': 6666,
+  'avatar': 'http://puek34b3i.bkt.clouddn.com//test/6a11b3de9c82d1583926825e8b0a19d8bd3e4256.jpg',
+  'title': '壁纸哟。',
+  'tags': ['OvO'],
+  'images': ['http://puek34b3i.bkt.clouddn.com/test/mobile/20161219_102320000_iOS.jpg'],
+  'creatDate': 1562723238731,
+};
 
-const List<Map<String, String>> bannerList = [
-  {
-    'author': 'Sukoshi',
-    'tag': '壁纸',
-    'title': '这只是一张图片',
-    'image': 'http://puek34b3i.bkt.clouddn.com//test/742c07f928d5c74bede09aeaaf03e39b.png',
-  },
-  {
-    'author': 'Sukoshi',
-    'tag': '动漫',
-    'title': '这只是一张图片',
-    'image': 'http://puek34b3i.bkt.clouddn.com//test/7970780f-5a02-43ac-8309-8a94a239621a.png',
-  },
-  {
-    'author': 'Sukoshi',
-    'tag': '插画',
-    'title': '这只是一张图片',
-    'image': 'http://puek34b3i.bkt.clouddn.com//test/8c007b5cgw1f3h8ob3h2cj215o0la4qp.jpg',
-  },
-  {
-    'author': 'Sukoshi',
-    'tag': '最新发布',
-    'title': '这只是一张图片',
-    'image': 'http://puek34b3i.bkt.clouddn.com//test/2fbae73349028a33ea67619d1073a854.jpeg'
-  },
-];
+const Map<String, dynamic> avatarList = {
+  'pid': '233333',
+  'author': 'Sukoshi',
+  'fans': 6666,
+  'avatar': 'http://puek34b3i.bkt.clouddn.com//test/6a11b3de9c82d1583926825e8b0a19d8bd3e4256.jpg',
+  'title': '这只是一张图片，仅此而且。',
+  'tags': ['壁纸', '动漫', '插画', '最新发布'],
+  'images': [
+    'http://puek34b3i.bkt.clouddn.com/test/avatar/v2-6a61444c93331835928f4172f2708ae1_r.jpg',
+    'http://puek34b3i.bkt.clouddn.com/test/avatar/20161008224217_vySsa.png',
+    'http://puek34b3i.bkt.clouddn.com/test/avatar/20161002162822_X4eEG.png',
+    'http://puek34b3i.bkt.clouddn.com/test/avatar/timg%20%283%29.jpeg',
+    'http://puek34b3i.bkt.clouddn.com/test/avatar/IMG_3135.JPG',
+    'http://puek34b3i.bkt.clouddn.com/test/avatar/IMG_1025.JPG',
+  ],
+  'creatDate': 1562723238731,
+};
 
-const List<Map<String, String>> avatarList = [
-  {
-    'author': 'Sukoshi',
-    'title': '这只是一张图片',
-    'image': 'http://puek34b3i.bkt.clouddn.com/test/avatar/v2-6a61444c93331835928f4172f2708ae1_r.jpg',
-  },
-  {
-    'author': 'Sukoshi',
-    'title': '这只是一张图片',
-    'image': 'http://puek34b3i.bkt.clouddn.com/test/avatar/20161008224217_vySsa.png',
-  },
-  {
-    'author': 'Sukoshi',
-    'title': '这只是一张图片',
-    'image': 'http://puek34b3i.bkt.clouddn.com/test/avatar/20161002162822_X4eEG.png',
-  },
-  {
-    'author': 'Sukoshi',
-    'title': '这只是一张图片',
-    'image': 'http://puek34b3i.bkt.clouddn.com/test/avatar/timg%20%283%29.jpeg',
-  },
-  {
-    'author': 'Sukoshi',
-    'title': '这只是一张图片',
-    'image': 'http://puek34b3i.bkt.clouddn.com/test/avatar/IMG_3135.JPG',
-  },
-  {
-    'author': 'Sukoshi',
-    'title': '这只是一张图片',
-    'image': 'http://puek34b3i.bkt.clouddn.com/test/avatar/IMG_1025.JPG',
-  },
-];
+const Map<String, dynamic> mobileList = {
+  'pid': '233333',
+  'author': 'Sukoshi',
+  'fans': 6666,
+  'avatar': 'http://puek34b3i.bkt.clouddn.com//test/6a11b3de9c82d1583926825e8b0a19d8bd3e4256.jpg',
+  'title': '这只是一张图片，仅此而且。',
+  'tags': ['壁纸', '动漫', '插画', '最新发布'],
+  'images': [
+    'http://puek34b3i.bkt.clouddn.com/test/mobile/20161110_232415000_iOS.jpg',
+    'http://puek34b3i.bkt.clouddn.com/test/mobile/20161114_110128607_iOS.jpg',
+    'http://puek34b3i.bkt.clouddn.com/test/mobile/20161219_102320000_iOS.jpg',
+    'http://puek34b3i.bkt.clouddn.com/test/mobile/20170627_050805167_iOS.jpg',
+  ],
+  'creatDate': 1562723238731,
+};
 
-const List<Map<String, String>> mobileList = [
-  {
-    'author': 'Sukoshi',
-    'title': '这只是一张图片',
-    'image': 'http://puek34b3i.bkt.clouddn.com/test/mobile/20161110_232415000_iOS.jpg',
-  },
-  {
-    'author': 'Sukoshi',
-    'title': '这只是一张图片',
-    'image': 'http://puek34b3i.bkt.clouddn.com/test/mobile/20161114_110128607_iOS.jpg',
-  },
-  {
-    'author': 'Sukoshi',
-    'title': '这只是一张图片',
-    'image': 'http://puek34b3i.bkt.clouddn.com/test/mobile/20161219_102320000_iOS.jpg',
-  },
-  {
-    'author': 'Sukoshi',
-    'title': '这只是一张图片',
-    'image': 'http://puek34b3i.bkt.clouddn.com/test/mobile/20170627_050805167_iOS.jpg',
-  },
-];
+const Map<String, dynamic> largeList = {
+  'pid': '233333',
+  'author': 'Sukoshi',
+  'fans': 6666,
+  'avatar': 'http://puek34b3i.bkt.clouddn.com//test/6a11b3de9c82d1583926825e8b0a19d8bd3e4256.jpg',
+  'title': '这只是一张图片，仅此而且。',
+  'tags': ['壁纸', '动漫', '插画', '最新发布'],
+  'images': [
+    'http://puek34b3i.bkt.clouddn.com//test/742c07f928d5c74bede09aeaaf03e39b.png',
+    'http://puek34b3i.bkt.clouddn.com//test/d1dd3f083ce20e202b384ad1f788a2ed.jpeg',
+    'http://puek34b3i.bkt.clouddn.com//test/7970780f-5a02-43ac-8309-8a94a239621a.png',
+    'http://puek34b3i.bkt.clouddn.com//test/2fbae73349028a33ea67619d1073a854.jpeg',
+  ],
+  'creatDate': 1562723238731,
+};
 
 const Map<String, dynamic> detailsInfo = {
-  'pid': '233333s',
+  'pid': '233333',
   'author': 'Sukoshi',
   'fans': 6666,
   'avatar': 'http://puek34b3i.bkt.clouddn.com//test/6a11b3de9c82d1583926825e8b0a19d8bd3e4256.jpg',
@@ -91,9 +68,9 @@ const Map<String, dynamic> detailsInfo = {
   'tags': ['表情包', '头像'],
   'images': [
     'http://puek34b3i.bkt.clouddn.com//test/8c007b5cgw1f3h8ob3h2cj215o0la4qp.jpg',
-    'http://puek34b3i.bkt.clouddn.com//test/d1dd3f083ce20e202b384ad1f788a2ed.jpeg',
     'http://puek34b3i.bkt.clouddn.com//test/7970780f-5a02-43ac-8309-8a94a239621a.png',
-    'http://puek34b3i.bkt.clouddn.com/test/mobile/20170627_050805167_iOS.jpg',
+    'http://puek34b3i.bkt.clouddn.com//test/8c007b5cgw1f3h8ob3h2cj215o0la4qp.jpg',
+    'http://puek34b3i.bkt.clouddn.com//test/2fbae73349028a33ea67619d1073a854.jpeg',
   ],
   'creatDate': 1562723238731,
 };

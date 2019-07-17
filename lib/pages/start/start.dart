@@ -22,6 +22,14 @@ class StartPage extends StatefulWidget {
 class _StartPageState extends State<StartPage> {
   VideoPlayerController _videoController;
 
+  // 处理页面跳转
+  void _goPage(BuildContext context, Route page) {
+    Navigator.push(context, page).then((res) {
+      _videoController.play();
+    });
+    _videoController.pause();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -111,13 +119,13 @@ class _StartPageState extends State<StartPage> {
                           children: <Widget>[
                             Expanded(
                               child: buildSubmitBtn('登陆', () {
-                                Navigator.push(context, FadeRouter(LoginPage()));
+                                _goPage(context, FadeRouter(LoginPage()));
                               }),
                             ),
                             SizedBox( width: P.margin ),
                             Expanded(
                               child: buildSubmitBtn('注册', () {
-                                Navigator.push(context, FadeRouter(RegisterPage()));
+                                _goPage(context, FadeRouter(RegisterPage()));
                               }),
                             ),
                           ],
@@ -141,11 +149,10 @@ class _StartPageState extends State<StartPage> {
                                     color: Color.fromRGBO(160, 92, 147, 1.0),
                                   ),
                                   recognizer: TapGestureRecognizer()..onTap = () {
-                                    Navigator.push(context, FadeRouter(HomePage()));
-                                    _videoController.pause();
+                                    _goPage(context, FadeRouter(HomePage()));
                                   },
                                 ),
-                              ]
+                              ],
                             ),
                           ),
                         ),

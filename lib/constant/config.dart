@@ -88,6 +88,15 @@ class S {
   // 登陆背景
   static const String loginVideo = 'assets/video/login.mp4';
   static const String loginImage = 'assets/images/login.png';
+
+  // 分享
+  static const String share     = 'assets/images/share.png';
+  // 下载
+  static const String download  = 'assets/images/download.png';
+
+  // 动画
+  // 收藏
+  static const String favorite = 'assets/flrs/favorite.flr';
 }
 
 class P {
