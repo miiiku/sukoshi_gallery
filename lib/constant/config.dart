@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // 选择图片标签tag的容器大小
 final Size ImageTagBoxSize = Size(412.0, 390.0);
@@ -108,4 +109,19 @@ class C {
   static const Color gray = Color.fromRGBO(151, 151, 151, 1.0);
   // 按钮阴影
   static List<BoxShadow> btnShadow = [BoxShadow(color: Color.fromRGBO(159, 210, 243, 0.35), blurRadius: 24.0, spreadRadius: 0.0, offset: Offset(0.0, 12.0),)];
+}
+
+class InterfaceInfo {
+  static const platform = const MethodChannel('sukoshi.flutter.io/battery');
+
+  // ios震动反馈系统
+  static Future<Null> onShock() async {
+    try {
+      await platform.invokeMethod('onShock');
+      print('震动成功');
+    } on PlatformException catch (e) {
+      print(e);
+      print('震动失败');
+    }
+  }
 }

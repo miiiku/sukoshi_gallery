@@ -28,6 +28,17 @@ class _DetailsPageState extends State<DetailsPage> {
   String play = 'unfavorite';
   SwiperController controller;
 
+  void goImagePage(BuildContext context, List<String> images, int index) async {
+    Navigator.push(context, FadeRouter(ImageMaxPage(images: images, index: index)))
+      .then((index) {
+        SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top, SystemUiOverlay.bottom]);
+        if (index == null) return;
+        setState(() {
+          controller.move(index, animation: false);
+        });
+      });
+  }
+
   // 获取数据
   Future<Map<String, dynamic>> _fetchData(int sid) async {
     Map<String, dynamic> data;
@@ -55,23 +66,16 @@ class _DetailsPageState extends State<DetailsPage> {
   }
 
   // 构建图片显示区域
-  Widget _buildSwiperContainer(List<String> images) {
+  Widget _buildSwiperContainer(BuildContext context, List<String> images) {
     if (images.length > 1) {
       return Swiper(
         autoplay: false,
-        onTap: (int index) async {
-          Navigator.push(context, FadeRouter(ImageMaxPage(images: images, index: index)))
-            .then((index) {
-              SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top, SystemUiOverlay.bottom]);
-              if (index == null) return;
-              setState(() {
-                controller.move(index, animation: false);
-              });
-            });
+        onTap: (int index) {
+          goImagePage(context, images, index);
         },
         controller: controller,
         itemCount: images.length,
-        itemBuilder: (BuildContext contenxt, int index) {
+        itemBuilder: (BuildContext context, int index) {
           return Container(
             child: Image(
               image: NetworkImage(images[index]),
@@ -81,7 +85,14 @@ class _DetailsPageState extends State<DetailsPage> {
         pagination: SwiperPagination(),
       );
     } else {
-      return Image.network(images[0]);
+      return Container(
+        child: GestureDetector(
+          onTap: () {
+            goImagePage(context, images, 0);
+          },
+          child: Image.network(images[0]),
+        ),
+      );
     }
   }
 
@@ -151,6 +162,12 @@ class _DetailsPageState extends State<DetailsPage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: _fetchData(widget.sid),
@@ -170,7 +187,7 @@ class _DetailsPageState extends State<DetailsPage> {
                         color: Colors.black12,
                         child: AspectRatio(
                           aspectRatio: 1920/1080,
-                          child: _buildSwiperContainer(dataInfo['images']),
+                          child: _buildSwiperContainer(context, dataInfo['images']),
                         ),
                       ),
                       // 内容详情
@@ -224,6 +241,8 @@ class _DetailsPageState extends State<DetailsPage> {
                                           margin: EdgeInsets.only(right: 10.0),
                                           child: GestureDetector(
                                             onTap: () {
+                                              /// 调用IOS震动反馈
+                                              InterfaceInfo.onShock();
                                               if (play == 'favoriteStatic') {
                                                 setState(() {
                                                   play = 'unfavorite';

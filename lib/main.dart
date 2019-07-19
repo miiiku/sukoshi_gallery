@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "一点点图库",
+      debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
       home: StartPage(),
       routes: {
